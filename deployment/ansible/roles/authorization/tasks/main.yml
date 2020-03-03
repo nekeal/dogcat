@@ -1,0 +1,16 @@
+- name: Add user
+  user: name="{{ deployer_user }}" shell="/bin/bash"
+  become: yes
+
+- name: Add user to sudoers
+  lineinfile: dest=/etc/sudoers
+              regexp="{{ deployer_user }} ALL"
+              line="{{ deployer_user }} ALL=(ALL) NOPASSWD:ALL"
+              state=present
+  become: yes
+
+- name: Add authorized keys
+  authorized_key:
+    user: "{{deployer_user}}"
+    key: "{{ lookup('file', playbook_dir + '/' + deployer_ssh_key) }}"
+  become: yes

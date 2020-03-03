@@ -1,0 +1,2 @@
+[letsencrypt]
+3.208.3.236 ansible_user=deployer letsencrypt_email=me@example.com domain_name=dogcat.beyondthe.dev

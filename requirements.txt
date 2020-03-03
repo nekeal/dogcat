@@ -1,0 +1,7 @@
+boto3==1.12.12
+Django==3.0.3
+django-storages==1.9.1
+psycopg2-binary==2.8.4
+python-dotenv==0.12.0
+Pillow==7.0.0
+gunicorn==20.0.4

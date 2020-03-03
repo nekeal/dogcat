@@ -1,0 +1,18 @@
+- name: apply common configuration to server
+  hosts: web
+  user: "{{ deployer_user }}"
+#  remote_user: root
+  vars_files:
+#    - "group_vars/secret.yml"
+#    - "group_vars/github.yml"
+  roles:
+    - nginx
+#    - letsencrypt
+    - postgres
+    - app
+#  environment:
+#    DB_NAME: "{{ db_name }}"
+#    DB_USER: "{{ db_user }}"
+#    DB_PASSWORD: "{{ db_password }}"
+#    DB_HOST: "{{ db_host }}"
+#    DJANGO_SECRET_KEY: "{{ django_secret_key }}"
