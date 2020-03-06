@@ -1,3 +1,3 @@
-static_bucket_name = "terraform-static" // name of bucket used for static files
-media_bucket_name = "terraform-media" // name of bucket used for media files
-ssh_pub_key = "id_rsa.pub"   // path to pub ssh key used for access to instance
+static_bucket_name = "terraform-static"
+media_bucket_name = "terraform-media"
+ssh_pub_key = "id_rsa.pub"
