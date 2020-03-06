@@ -90,7 +90,7 @@ EOF
 resource "aws_instance" "web" {
   ami = "ami-07ebfd5b3428b6f4d"
   instance_type = "t2.micro"
-  key_name = "deployer-key"
+  key_name = aws_key_pair.deployer.key_name
   security_groups = [aws_security_group.sshhttp.name]
   iam_instance_profile = aws_iam_instance_profile.ec2_to_s3_access.id
 }
@@ -103,7 +103,7 @@ resource "aws_iam_user" "deployer" {
   }
 }
 
-data "template_file" "static-bucket-policy" {
+data "template_file" "static_bucket_policy" {
   template = file("buckets-policy.json.tpl")
   vars = {
     bucket_name = var.static_bucket_name
@@ -111,7 +111,7 @@ data "template_file" "static-bucket-policy" {
   }
 }
 
-data "template_file" "media-bucket-policy" {
+data "template_file" "media_bucket_policy" {
   template = file("buckets-policy.json.tpl")
   vars = {
     bucket_name = var.media_bucket_name
@@ -121,14 +121,14 @@ data "template_file" "media-bucket-policy" {
 
 resource "aws_s3_bucket" "static" {
   bucket = var.static_bucket_name
-  policy = data.template_file.static-bucket-policy.rendered
+  policy = data.template_file.static_bucket_policy.rendered
   force_destroy = true
 
 }
 
 resource "aws_s3_bucket" "media" {
   bucket = var.media_bucket_name
-  policy = data.template_file.media-bucket-policy.rendered
+  policy = data.template_file.media_bucket_policy.rendered
   force_destroy = true
 }
 
