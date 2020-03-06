@@ -132,6 +132,6 @@ resource "aws_s3_bucket" "media" {
   force_destroy = true
 }
 
-output "policy" {
+output "public_domain" {
    value = aws_instance.web.public_dns
 }
