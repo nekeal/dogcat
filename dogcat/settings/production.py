@@ -40,5 +40,8 @@ DATABASES = {
     }
 
 }
-STATIC_ROOT = os.path.join(BASE_DIR, 'public')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'dogcat.storages.MediaStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = os.getenv('STATIC_BUCKET', 'dogcat-static')
+AWS_MEDIA_BUCKET_NAME = os.getenv('MEDIA_BUCKET', 'dogcat-static')
+AWS_DEFAULT_ACL = 'public-read'
