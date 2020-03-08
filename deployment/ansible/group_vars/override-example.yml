@@ -1,0 +1,9 @@
+deployer_ssh_key: "" # path to pub key which will be used for deployer user and git authentication
+
+domain: "" # domain on which https will be enabled
+nginx_server_name: "{{ domain }}" # allowed ips and domains for nginx
+letsencrypt_email: "example@gmail.com"
+
+# AWS Settings
+static_bucket_name: "dogcat-static"
+media_bucket_name: "dogcat-media"

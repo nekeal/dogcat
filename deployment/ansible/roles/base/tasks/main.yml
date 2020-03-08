@@ -1,0 +1,32 @@
+
+- name: installing core packages
+  become: yes
+  apt:
+    name:
+      - rsync
+      - sudo
+      - supervisor
+      - git
+      - python-dev
+      - python3-pip
+      - virtualenv
+      - python-psycopg2
+      - nginx
+      - letsencrypt
+    state: present
+    update_cache: yes
+    autoclean: yes
+
+- name: Creates virtualenvs directory
+  file:
+    path: /home/{{deployer_user}}/.virtualenvs
+    state: directory
+    owner: "{{ deployer_user }}"
+  become: yes
+
+- name: Creates log directory
+  file:
+    path: "{{ log_dir }}"
+    state: directory
+    owner: "{{ deployer_user }}"
+  become: yes

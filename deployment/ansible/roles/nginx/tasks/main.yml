@@ -1,0 +1,60 @@
+- name: install letsencrypt
+  apt:
+    name: letsencrypt
+    state: latest
+  become: yes
+
+- name: Create letsencrypt main directory
+  file:
+    name: /var/www/letsencrypt
+    state: directory
+    owner: "{{ deployer_user }}"
+  become: yes
+
+- name: Remove default nginx config
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+  become: yes
+
+- name: Create nginx config for letsencrypt requests
+  template:
+    src: nginx-letsencrypt.j2
+    dest: /etc/nginx/sites-enabled/letsencrypt
+  become: yes
+
+- name: Reload nginx to activate letsencrypt config
+  service:
+    name: nginx
+    state: reloaded
+  become: yes
+
+- name: Generate letsencrypt certificate
+  shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain }}
+  args:
+    creates: /etc/letsencrypt/live/{{ domain }}
+  become: yes
+
+- name: Remove letsencrypt nginx config
+  file:
+    name: /etc/nginx/sites-enabled/letsencrypt
+    state: absent
+  become: yes
+
+- name: Create the nginx configuration file
+  template: src=django-nginx.j2
+            dest=/etc/nginx/sites-available/{{ app_name }}
+            backup=yes
+  notify: Reload nginx
+  become: yes
+  tags:
+    - nginx
+
+- name: Ensure that the application site is enabled
+  file: src=/etc/nginx/sites-available/{{ app_name }}
+    dest=/etc/nginx/sites-enabled/{{ app_name }}
+    state=link
+  notify: Reload nginx
+  become: yes
+  tags:
+    - nginx

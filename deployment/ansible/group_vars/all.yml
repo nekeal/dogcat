@@ -1,0 +1,33 @@
+app_name: dogcat
+
+deployer_user: deployer
+deployer_group: deployer
+
+# Git
+code_repository_url: "git@gitlab.deployed.pl:viciu/dogcat.git"
+repo_name: "{{ app_name }}"
+branch_name: 'master'
+
+# Virtualenv
+venv_dir: '/home/{{ deployer_user }}/.virtualenvs/{{ app_name }}'
+venv_python: '{{ venv_dir }}/bin/python'
+
+# Directory Settings
+repo_dir: "/home/{{ deployer_user }}/{{ repo_name }}"
+app_dir: "{{ repo_dir }}"
+log_dir: "/var/log/gunicorn"
+
+# Http Server Details
+wsgi_server_port: 8000
+https_only: false
+
+# Django Settings
+django_wsgi_module: "{{app_name}}.wsgi"
+django_settings_module: "{{app_name}}.settings.production"
+django_secret_key: "q9w_=%0%f+wkx%#l8%8a(3$!m82*c69wdl@zn88w9fs*&b+sr!"
+
+# Postgres Settings
+db_user: "{{ app_name }}"
+db_password: "4^3u^7yuy*v-"
+db_name: "{{ app_name }}"
+db_host: "localhost"
