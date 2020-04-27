@@ -2,10 +2,14 @@
   tags: deploy
 
 - name: Write env file
-  template: src=example-env.j2 dest={{ app_dir }}/.env
+  template:
+    src: example-env.j2
+    dest: "{{ app_dir }}/.env"
 
 - name: Write supervisor conf file
-  template: src=example-django-supervisor.conf.j2 dest=/etc/supervisor/conf.d/{{ app_name }}.conf
+  template:
+    src: example-django-supervisor.conf.j2
+    dest: "/etc/supervisor/conf.d/{{ app_name }}.conf"
   become: true
   notify:
     - Reread supervisor

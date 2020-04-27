@@ -1,9 +1,10 @@
 - name: Pull app from git
-  git: repo={{ code_repository_url }}
-       dest={{ repo_dir }}
-       version={{ branch_name }}
-       force=yes
-       accept_hostkey=yes
+  git:
+    repo: "{{ code_repository_url }}"
+    dest: "{{ repo_dir }}"
+    version: "{{ branch_name }}"
+    force: yes
+    accept_hostkey: yes
   notify:
     - Reload supervisor
     - Install requirements

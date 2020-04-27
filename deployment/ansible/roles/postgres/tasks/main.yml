@@ -21,21 +21,25 @@
   become: yes
 
 - name: Start and enable postgres
-  service: name=postgresql enabled=yes state=started
+  service:
+    name: postgresql
+    enabled: yes
+    state: started
   become: yes
 
 - name: Create database
-  postgresql_db: name={{ app_name }}
+  postgresql_db:
+    name: "{{ app_name }}"
   become_user: postgres
   become: yes
 
 - name: Configure a new postgresql user
   postgresql_user:
-    db={{ db_name }}
-    name={{ db_user }}
-    password={{ db_password }}
-    priv=ALL
-    role_attr_flags=NOSUPERUSER
+    db: "{{ db_name }}"
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: ALL
+    role_attr_flags: NOSUPERUSER
   become: yes
   become_user: postgres
   notify:
