@@ -34,9 +34,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db.sqlite3',
-        # 'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        # 'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
-        # 'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
     }
 
 }
