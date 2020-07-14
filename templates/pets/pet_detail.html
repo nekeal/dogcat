@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block additional_style %}
+    <style>
+    body{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    div.main{
+        width: 80vw;
+        height: 80vh;
+    }
+    img.pet{
+        width: 100%;
+        height: auto;
+    }
+    h1{
+        text-align: center;
+    }
+    figcaption{
+        font-size: 25px;
+        text-align: center;
+    }
+    </style>
+{% endblock additional_style %}
+
+{% block body %}
+<div class="main">
+<figure>
+    <h1>{{ object.kind }}</h1>
+    <img class="pet figure-img rounded" src="{{ object.image.url }}" alt="Ups...">
+    <figcaption>{{ object.short_description }}</figcaption>
+</figure>
+</div>
+{% endblock %}
