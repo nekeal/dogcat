@@ -21,6 +21,7 @@ from django.urls import path
 from dogcat.pets.views import PetCreateView, PetDetailView
 
 urlpatterns = [
+    path('', PetCreateView.as_view()),
     path('admin/', admin.site.urls),
     path('pet/', PetCreateView.as_view()),
     path('pet/<int:pk>', PetDetailView.as_view(), name='pet_detail'),
